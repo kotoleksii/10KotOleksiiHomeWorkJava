@@ -1,13 +1,18 @@
 package edu.itstep.FirstTaskSynchronized;
 
 public class CounterThread implements Runnable {
-    CommonResource commonResource;
+    public static int count = 0;
+    Object object;
 
-    CounterThread(CommonResource commonResource) {
-        this.commonResource = commonResource;
+    CounterThread(Object obj) {
+        this.object = obj;
     }
 
     public void run() {
-        commonResource.increment();
+        synchronized (object) {
+            for (int i = 0; i < 1_000_000; i++) {
+                count++;
+            }
+        }
     }
 }
